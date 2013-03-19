@@ -1,0 +1,45 @@
+Description
+-----------
+This is a simple extension generated ext_skel script. It has only one user defined function: string echo_string(string text);.
+
+Changes Done to the Genereated echo extension
+---------------------------------------------
+1. PHP_FUNCTION(echo_string) function implementation in echo.c. 
+
+    char *text = NULL;
+    int argc = ZEND_NUM_ARGS();
+    int text_len; 
+    if (zend_parse_parameters(argc TSRMLS_CC, "s", &text, &text_len) == FAILURE) {
+        php_error_doc_ref(NULL TSRMLS_CC, E_ERROR, "Invalid Parameters");
+        return;
+    } 
+    RETURN_STRING(text, 1);
+
+2. PHP_ARG value of config.m4
+
+PHP_ARG_ENABLE(echo, whether to enable echo support,
+[  --enable-echo           Enable echo support])
+
+Compiling and Running the extension
+-----------------------------------
+1. Execute the script "phpize". This creates the configuration file for you.
+
+2. ./configure --enable-echo
+3. The above command creates the Makefile for you. You just need to type "make" compile it. This creates echo.so under modules folder.
+4. You may need to edit the Makefile to change the install location. Let's say our extensions live in /usr/local/lib/php/ext/. Locate EXTENSION_DIR attribute in the Makefile and change to the following.
+EXTENSION_DIR=/usr/local/lib/php/ext
+
+Now, if you execute "make install", echo.so gets copied to our extensions repository.
+5. Before you can use this extension, you need to follow one last step. Open the php.ini (vim /usr/local/lib/php.ini), make sure "extension_dir" property is correctly set to the following.
+
+extension_dir = "/usr/local/lib/php/ext"
+
+Also, add the following entry to the same file.
+
+extension=echo.so
+6. run "php echo_test.php" to check you have carried out the operation successfully. You should see the following string on the screen.
+"echoed string is Hello World!"
+
+
+Documented by -Nabeel
+
