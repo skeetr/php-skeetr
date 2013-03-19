@@ -1,10 +1,10 @@
 --TEST--
-Check for echo presence
+Check for skeetr presence
 --SKIPIF--
-<?php if (!extension_loaded("echo")) print "skip"; ?>
+<?php if (!extension_loaded("skeetr")) print "skip"; ?>
 --FILE--
 <?php 
-echo "echo extension is available";
+echo "skeetr extension is available";
 /*
 	you can add regression tests for your extension here
 
@@ -18,4 +18,4 @@ echo "echo extension is available";
 */
 ?>
 --EXPECT--
-echo extension is available
+skeetr extension is available
